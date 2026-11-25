@@ -69,7 +69,6 @@ void draw(){
      stars[i].update();
      stars[i].display();
     }
-    //location
      alpha.display();
   
     //viewscreen
@@ -97,17 +96,20 @@ void init(){
   
   //checksum
   healthbar = new Checksum();
+  healthbar.checksum += pow(2, 2);
   //starfield simulation
   for(int i = 0; i < stars. length; i++){
     stars[i] = new Star();
   }
+  char[] c = binary(healthbar.checksum).toCharArray();
+  c[c.length - 3] = '1';
+  healthbar.checksum = unbinary(new String(c));
   //cargo
   loadCargo();
   println("Cargo manifest:");
   for(String item : cargo){
     println(item);
   }
-  //location
   char[] bin = binary(healthbar.checksum).toCharArray();
   bin[bin.length-4] = '1';
   bin[bin.length-8] = '1';
@@ -121,6 +123,9 @@ void init(){
   
   //dialogue
   person = new Person();
+  char[] q = binary(healthbar.checksum).toCharArray();
+  q[q.length - 7] = '1';
+  healthbar.checksum = unbinary(new String(q));  
   //junk
   junk = new Junk();
   
